@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Task from './components/Task'
 
@@ -6,6 +6,45 @@ function App() {
   const [task, setTask] = useState("")
   const [tasks, setTasks] = useState([])
 
+  useEffect(() => {
+    setTasks(
+      fetchingTodo(
+        "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+        "GET"
+      )
+    )
+  }, [])
+
+  const fetchingTodo = async (url, method, body) => {
+    const option1 = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+
+    const option2 = {
+      method: method,
+      headers: {
+        "Content-Type": "application/json",
+      }
+    }
+
+    const finalOption = method === "Get" ? option2 : option1
+
+    try {
+      const responce = await fetch(url, finalOption);
+
+      if (!responce.ok) {
+        throw new Error("Status error in Fetch")
+      }
+      const data = await responce.json()
+      return data;
+    } catch (error) {
+      console.log(`Error ${error}`)
+    }
+  }
 
   const handleChange = (e) => {
     setTask(e.target.value);
