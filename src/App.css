@@ -1,42 +1,110 @@
-#root {
-  max-width: 1280px;
+body {
+  width: 100%;
+  height: 850px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  background-color: black;
+  z-index: -10;
+}c
+
+.postit {
+  width: 500px;
+  border: 1px solid gray;
+  border-bottom: 0px;
+  max-height: 400px;
+  overflow-y: scroll;
+  scrollbar-width:  none;
+  background-color: lightyellow;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.title {
+  font-size: 64px;
+  color: lightyellow;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.taskDiv {
+  width: 500px;
+  background-color: lightyellow;
+  display: flex;
+  height: 49px;
+  border-bottom: 1px solid gray;
+  border-top: 0px;
+  align-items: center;
+  justify-content: space-between;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+
+.taskDetail {
+  float: left;
+  padding-left: 10px;
+  color: black;
 }
 
-.card {
-  padding: 2em;
+.deleteBtn {
+  color: black;
+  width: 49px;
+  height: 49px;
+  float: right;
+  background-color: lightyellow;
+  font-size: xx-large;
+  border: 0px;
+  border-left: 1px solid gray;
+  cursor: pointer;
 }
 
-.read-the-docs {
-  color: #888;
+.postitEnd1 {
+  width: 495px;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  height: 5px;
+  background-color: lightyellow;
+  margin: auto;
+}
+
+.postitEnd2 {
+  width: 490px;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  border-left: 1px solid gray;
+  height: 5px;
+  background-color: lightyellow;
+  margin: auto;
+}
+
+.taskCount {
+  width: 490px;
+  display: flex;
+  height: 50px;
+  color: gray;
+  padding-right: 10px;
+  justify-content: flex-end;
+  border: 1px solid gray;
+  border-top: 0px;
+  background-color: lightyellow;
+  align-content: center;
+}
+
+
+form {
+  display: flex;
+  width: 500px;
+  height: 50px;
+  border: 1px solid gray;
+  border-bottom: 0px solid gray;
+  padding: 0px;
+}
+
+input {
+  width: 500px;
+  background: lightyellow;
+  border: 0px solid gray;
+  color: black;
+}
+
+input::placeholder{
+  padding: 10px;
 }

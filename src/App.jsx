@@ -1,33 +1,49 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import Task from './components/Task'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [task, setTask] = useState("")
+  const [tasks, setTasks] = useState([])
 
+
+  const handleChange = (e) => {
+    setTask(e.target.value);
+  }
+  const handleKeyDown = (e) => {
+    
+      if (e.key === "Enter") {
+        e.preventDefault()
+        if (task != "") {
+        setTasks(prevTasks => [...prevTasks, task]);
+        setTask('')
+      }
+    }
+  }
+
+  const deleteTask = (index, list) => {
+    list.splice(index, 1);
+    setTasks([...list])
+    return list
+  }
+
+  const renderTasks = () => tasks.map((task, index) => {
+    return <Task key={index} id={index} detail={task} tasks={tasks} deleteTask={deleteTask} />
+  })
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <h1 className='title '>To Do List </h1>
+      <form >
+        <input maxLength={38} minLength={2} type="text" placeholder='Add a task...' onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} value={task} />
+      </form>
+      <div className='postit'>
+        {!tasks.length == 0 ? renderTasks() : <div className='taskDiv'><h3 className='taskDetail'>{"Add your first task"}</h3></div>}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className='taskCount'>
+        <p>{tasks.length} Task left</p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className='postitEnd1'></div>
+      <div className='postitEnd2'></div>
     </>
   )
 }
