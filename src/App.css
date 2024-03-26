@@ -3,6 +3,7 @@ body {
   height: 850px;
   margin: 0 auto;
   padding: 2rem;
+  padding-top: 0px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -16,12 +17,12 @@ body {
   border-bottom: 0px;
   max-height: 400px;
   overflow-y: scroll;
-  scrollbar-width:  none;
+  scrollbar-width: none;
   background-color: lightyellow;
 }
 
 .title {
-  font-size: 64px;
+  font-size: 50px;
   color: lightyellow;
 }
 
@@ -102,6 +103,18 @@ input {
   color: black;
 }
 
-input::placeholder{
+input::placeholder {
   padding: 10px;
+}
+
+.activeUser {
+  width: 500px;
+  display: flex;
+  height: 50px;
+  color: black;
+  justify-content: center;
+  border: 1px solid gray;
+  background-color: lightyellow;
+  align-content: center;
+  margin-top: 0px;
 }

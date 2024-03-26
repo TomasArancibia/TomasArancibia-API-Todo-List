@@ -5,11 +5,12 @@ import Task from './components/Task'
 function App() {
   const [task, setTask] = useState({})
   const [tasks, setTasks] = useState([])
+  const [username, setUsername] = useState("tomasarancibia")
 
   useEffect(() => {
     const fetchData = async () => {
       const getTasks = await fetchingTodo(
-        "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+        `https://playground.4geeks.com/apis/fake/todos/user/${username}`,
         "GET");
       setTasks(getTasks);
     }
@@ -62,7 +63,7 @@ function App() {
       console.log(newTasks)
       setTasks(newTasks);
       fetchingTodo(
-        "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+        `https://playground.4geeks.com/apis/fake/todos/user/${username}`,
         "PUT",
         newTasks
       );
@@ -72,16 +73,15 @@ function App() {
 
   const handleClick = async () => {
     await fetchingTodo(
-      "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+      `https://playground.4geeks.com/apis/fake/todos/user/${username}`,
       "DELETE",
       []
     );
     await fetchingTodo(
-      "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+      `https://playground.4geeks.com/apis/fake/todos/user/${username}`,
       "POST",
       []
     );
-    console.log(tasks);
     setTasks([]);
   }
 
@@ -90,6 +90,7 @@ function App() {
   })
   return (
     <>
+      <div className='activeUser'><p>User: {username} </p></div>
       <h1 className='title '>To Do List </h1>
       <form >
         <input maxLength={38} minLength={2} type="text" placeholder='Add a task...' onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} value={task.label} />
@@ -98,7 +99,6 @@ function App() {
         {tasks.length == 0 ? <div className='taskDiv'><h3 className='taskDetail'>{"Add your first task"}</h3></div>: renderTasks()}
       </div>
       <div className='taskCount'>
-
         <p>{tasks.length} Task left</p>
         <button onClick={handleClick}> Clear List </button>
       </div>
