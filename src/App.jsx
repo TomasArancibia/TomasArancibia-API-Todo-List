@@ -37,18 +37,16 @@ function App() {
     try {
       const responce = await fetch(url, finalOption);
       if (!responce.ok) {
-        console.log(responce.text()); // Will try to return the exact result as a stri
+        console.log(responce.text());
         throw new Error("Status error in Fetch")
       }
       const data = await responce.json()
       return data;
     } catch (error) {
-      console.log(`${error}`)
     }
   }
 
   const handleChange = (e) => {
-    console.log(task)
     setTask(
       {
         label: e.target.value,
@@ -60,7 +58,7 @@ function App() {
 
     if (e.key === "Enter") {
       e.preventDefault()
-      const newTasks = [...tasks, task  ];
+      const newTasks = [...tasks, task];
       console.log(newTasks)
       setTasks(newTasks);
       fetchingTodo(
@@ -68,35 +66,40 @@ function App() {
         "PUT",
         newTasks
       );
-    setTask({ label: "" });
-    } 
+      setTask({ label: "" });
+    }
   }
 
-  const handleClick = () => {
-      setTasks([]);
-      fetchingTodo(
-        "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
-        "PUT",
-        []
-      );
-    } 
+  const handleClick = async () => {
+    await fetchingTodo(
+      "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+      "DELETE",
+      []
+    );
+    await fetchingTodo(
+      "https://playground.4geeks.com/apis/fake/todos/user/tomasarancibia",
+      "POST",
+      []
+    );
+    console.log(tasks);
+    setTasks([]);
+  }
 
-  const renderTasks = () => tasks?.slice(1).map((task, index) => {
-    console.log(task)
+  const renderTasks = () => tasks?.map((task, index) => {
     return <Task key={index} id={index} detail={task.label} />
   })
   return (
     <>
       <h1 className='title '>To Do List </h1>
       <form >
-        <input maxLength={38} minLength={2} type="text" placeholder='Add a task...' onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)}  value={task.label}/>
+        <input maxLength={38} minLength={2} type="text" placeholder='Add a task...' onChange={(e) => handleChange(e)} onKeyDown={(e) => handleKeyDown(e)} value={task.label} />
       </form>
       <div className='postit'>
-        {!tasks.length  == 0 ? renderTasks() : <div className='taskDiv'><h3 className='taskDetail'>{"Add your first task"}</h3></div>}
+        {tasks.length == 0 ? <div className='taskDiv'><h3 className='taskDetail'>{"Add your first task"}</h3></div>: renderTasks()}
       </div>
       <div className='taskCount'>
 
-        <p>{tasks.length >= 1 ? tasks.length-1: tasks.length} Task left</p>
+        <p>{tasks.length} Task left</p>
         <button onClick={handleClick}> Clear List </button>
       </div>
       <div className='postitEnd1'></div>
