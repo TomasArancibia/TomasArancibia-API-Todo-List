@@ -78,13 +78,24 @@ function App() {
       e.preventDefault();
       const newTasks = [...tasks, task];
       setTasks(newTasks);
-      console.log(newTasks)
       fetchingTodo(
         `https://playground.4geeks.com/todo/todos/${username}`,
         "POST",
-        newTasks
+        task
       );
       setTask({ label: "" });
+    }
+  }
+  const KeyChangeUser = async (e) => {
+    if (e.key === "Enter") {
+      setTasks([]);
+      setUsername(user);  
+      const getTasks = await fetchingTodo(
+        `https://playground.4geeks.com/todo/users/${username}`,
+        "GET"
+      );
+      setTasks(Array.isArray(getTasks["todos"]) ? getTasks["todos"] : []);
+      setUser("")
     }
   }
 
@@ -105,8 +116,12 @@ function App() {
     e.preventDefault()
     setTasks([]);
     setUsername(user);  
-      fetchingTodo(`https://playground.4geeks.com/todo/users/${username}`,
-      "GET");
+    const getTasks = await fetchingTodo(
+      `https://playground.4geeks.com/todo/users/${username}`,
+      "GET"
+    );
+    setTasks(Array.isArray(getTasks["todos"]) ? getTasks["todos"] : []);
+    setUser("")
   }
 
   const renderTasks = () => tasks?.map((task, index) => (
@@ -118,7 +133,7 @@ function App() {
       <div className='activeUser'><p>User: {username} </p></div>
       <div className='activeUser'>
         <form onSubmit={(e) => ChangeUser(e)}>
-          <input type="text" value={user} onChange={(e) => handleChangeUser(e)}  placeholder='Select User...'/>
+          <input type="text" value={user} onChange={(e) => handleChangeUser(e)} onKeyDown={KeyChangeUser} placeholder='Select User...'/>
           <button type="submit">Change User</button>
         </form>
       </div>
