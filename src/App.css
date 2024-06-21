@@ -114,6 +114,7 @@ input::placeholder {
   color: black;
   justify-content: center;
   border: 1px solid gray;
+  border-bottom: 0px solid gray;
   background-color: lightyellow;
   align-content: center;
   margin-top: 0px;
